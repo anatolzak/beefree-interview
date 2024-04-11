@@ -76,7 +76,7 @@ const ListDrones = () => {
       <div className='mb-8 flex justify-between items-center'>
         <h1 className='text-4xl font-medium'>Drones</h1>
         <Button asChild>
-          <Link to={ROUTES.createDrone.path}>Add Drone</Link>
+          <Link to={ROUTES.addDrone.path}>Add Drone</Link>
         </Button>
       </div>
 

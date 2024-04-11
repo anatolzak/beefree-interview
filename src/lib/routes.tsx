@@ -1,4 +1,4 @@
-import CreateDrone from '../routes/create-drone';
+import AddDrone from '../routes/add-drone';
 import DroneDetail from '../routes/drone-detail';
 import ListDrones from '../routes/list-drones';
 
@@ -16,9 +16,9 @@ export const ROUTES = {
       return this.path;
     },
   },
-  createDrone: {
-    path: '/create-drone',
-    element: <CreateDrone />,
+  addDrone: {
+    path: '/add-drone',
+    element: <AddDrone />,
     getPath() {
       return this.path;
     },

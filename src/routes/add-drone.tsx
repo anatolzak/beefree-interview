@@ -13,10 +13,10 @@ import { ROUTES } from '../lib/routes';
 import { droneSchema } from '../schema';
 import { DetailedDroneData } from '../types';
 
-const CreateDrone = () => {
+const AddDrone = () => {
   /**
    * We fetch all the drones and cache them so that by the time the user
-   * creates a new drone, we can directly modify the cached drones list
+   * adds a new drone, we can directly modify the cached drones list
    * in local storage.
    */
   useDrones();
@@ -57,7 +57,7 @@ const CreateDrone = () => {
         <ChevronLeft /> Back to all drones
       </Link>
       <div className='mb-8 flex justify-between items-center'>
-        <h1 className='text-4xl font-medium'>Create Drone</h1>
+        <h1 className='text-4xl font-medium'>Add Drone</h1>
       </div>
       <Form {...form}>
         <form
@@ -197,4 +197,4 @@ const CreateDrone = () => {
   );
 };
 
-export default CreateDrone;
+export default AddDrone;
