@@ -10,6 +10,6 @@ export const droneSchema = z.object({
   drone_code: z.string().min(1),
   name: z.string().min(1),
   range: z.coerce.number(),
-  release_date: z.string().min(1),
+  release_date: z.date().transform((date) => date.toISOString()),
   cameras: z.array(droneCameraSchema).min(1)
 });
