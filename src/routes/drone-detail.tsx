@@ -14,7 +14,7 @@ const DroneDetail = () => {
   const { drone_code, name, range, release_date, cameras } = droneData ?? {};
 
   return (
-    <section className='max-w-5xl mx-auto py-10'>
+    <section className='max-w-5xl mx-auto py-10 px-3'>
       <Link
         to={ROUTES.listDrones.path}
         className='flex space-x-3 items-center mb-5'

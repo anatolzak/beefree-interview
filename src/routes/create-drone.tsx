@@ -49,7 +49,7 @@ const CreateDrone = () => {
   };
 
   return (
-    <section className='max-w-2xl mx-auto py-10'>
+    <section className='max-w-2xl mx-auto py-10 px-3'>
       <Link
         to={ROUTES.listDrones.path}
         className='flex space-x-3 items-center mb-5'

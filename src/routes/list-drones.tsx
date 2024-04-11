@@ -72,7 +72,7 @@ const ListDrones = () => {
   const { drones, error, isLoading } = useDrones();
 
   return (
-    <section className='max-w-5xl mx-auto py-10'>
+    <section className='max-w-5xl mx-auto py-10 px-3'>
       <div className='mb-8 flex justify-between items-center'>
         <h1 className='text-4xl font-medium'>Drones</h1>
         <Button asChild>
