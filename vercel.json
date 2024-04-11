@@ -1,3 +1,5 @@
 {
-  "rewrites": [{ "source": "/api/:path", "destination": "https://interviews-api.beefreeagro.com/api/:path" }]
+  "rewrites": [
+    { "source": "/api/:path*", "destination": "https://interviews-api.beefreeagro.com/api/:path*" }
+  ]
 }
