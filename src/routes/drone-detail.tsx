@@ -11,8 +11,6 @@ const DroneDetail = () => {
   const { droneCode } = useParams();
   const { droneData, error } = useDetailedDrone(droneCode!);
 
-  const { drone_code, name, range, release_date, cameras } = droneData ?? {};
-
   return (
     <section className='max-w-5xl mx-auto py-10 px-3'>
       <Link
@@ -46,19 +44,19 @@ const DroneDetail = () => {
             <TableBody>
               <TableRow>
                 <TableHead scope='row'>Drone Code</TableHead>
-                <TableCell>{drone_code}</TableCell>
+                <TableCell>{droneData.drone_code}</TableCell>
               </TableRow>
               <TableRow>
                 <TableHead scope='row'>Name</TableHead>
-                <TableCell>{name}</TableCell>
+                <TableCell>{droneData.name}</TableCell>
               </TableRow>
               <TableRow>
                 <TableHead scope='row'>Range</TableHead>
-                <TableCell>{range}</TableCell>
+                <TableCell>{droneData.range}</TableCell>
               </TableRow>
               <TableRow>
                 <TableHead scope='row'>Release Date</TableHead>
-                <TableCell>{release_date}</TableCell>
+                <TableCell>{new Date(droneData.release_date).toLocaleDateString()}</TableCell>
               </TableRow>
             </TableBody>
           </Table>
@@ -66,7 +64,7 @@ const DroneDetail = () => {
           <h2 className='text-2xl font-medium mb-3'>Cameras</h2>
 
           <div className='space-y-4'>
-            {cameras?.map(({ megapixels, name, type }, idx) => {
+            {droneData.cameras.map(({ megapixels, name, type }, idx) => {
               return (
                 <div key={idx}>
                   <div className='text-lg'>{name}</div>
