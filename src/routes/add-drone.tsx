@@ -52,7 +52,7 @@ const AddDrone = () => {
     <section className='max-w-2xl mx-auto py-10 px-3'>
       <Link
         to={ROUTES.listDrones.path}
-        className='flex space-x-3 items-center mb-5'
+        className='flex gap-x-2 items-center mb-5'
       >
         <ChevronLeft /> Back to all drones
       </Link>
