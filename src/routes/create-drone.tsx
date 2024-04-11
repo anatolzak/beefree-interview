@@ -1,14 +1,12 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { format } from 'date-fns';
-import { CalendarIcon, ChevronLeft } from 'lucide-react';
+import { ChevronLeft } from 'lucide-react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 
+import { CalendarPopover } from '../components/calendar-popover';
 import { Button } from '../components/ui/button';
-import { Calendar } from '../components/ui/calendar';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../components/ui/form';
 import { Input } from '../components/ui/input';
-import { Popover, PopoverContent, PopoverTrigger } from '../components/ui/popover';
 import useDrones from '../hooks/use-drones';
 import { API_ENDPOINTS } from '../lib/constants';
 import { ROUTES } from '../lib/routes';
@@ -114,31 +112,7 @@ const CreateDrone = () => {
             render={({ field }) => (
               <FormItem className='flex flex-col'>
                 <FormLabel>Release Date</FormLabel>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <FormControl>
-                      <Button
-                        variant={'outline'}
-                        className='w-[240px] pl-3 text-left font-normal'
-                      >
-                        {format(field.value, 'PPP')}
-                        <CalendarIcon className='ml-auto h-4 w-4 opacity-50' />
-                      </Button>
-                    </FormControl>
-                  </PopoverTrigger>
-                  <PopoverContent
-                    className='w-auto p-0'
-                    align='start'
-                  >
-                    <Calendar
-                      mode='single'
-                      onSelect={field.onChange}
-                      disabled={(date) => date > new Date() || date < new Date('1900-01-01')}
-                      selected={new Date(field.value)}
-                      initialFocus
-                    />
-                  </PopoverContent>
-                </Popover>
+                <CalendarPopover {...field} />
                 <FormMessage />
               </FormItem>
             )}
