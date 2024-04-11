@@ -23,7 +23,7 @@ const columns: Column<MinimalDroneData>[] = [
   {
     key: 'drone_code',
     label: 'Drone Code',
-    headerClass: 'w-[200px]',
+    headerClass: 'md:w-[200px]',
     cellClass: 'font-bold underline',
     getCell: ({ drone_code, name }: MinimalDroneData) => {
       return (
