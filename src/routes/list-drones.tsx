@@ -8,42 +8,63 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '.
 import useDrones from '../hooks/use-drones';
 import { ROUTES } from '../lib/routes';
 import { MinimalDroneData } from '../types';
+import { Tooltip, TooltipContent, TooltipTrigger } from '../components/ui/tooltip';
+import { API_ENDPOINTS } from '../lib/constants';
 
-type Column = {
-  key: keyof MinimalDroneData;
+type Column<T extends object> = {
+  key: keyof T;
   label: string;
   headerClass?: string;
   cellClass?: string;
-  getCell: (...args: any) => ReactNode;
+  getCell: (item: T) => ReactNode;
 };
 
-const columns: Column[] = [
+const columns: Column<MinimalDroneData>[] = [
   {
     key: 'drone_code',
     label: 'Drone Code',
     headerClass: 'w-[200px]',
     cellClass: 'font-bold underline',
-    getCell: (droneCode: string) => {
-      return <Link to={ROUTES.droneDetail.getPath(droneCode)}>{droneCode}</Link>;
+    getCell: ({ drone_code, name }: MinimalDroneData) => {
+      return (
+        <Tooltip
+          disableHoverableContent
+          delayDuration={200}
+        >
+          <TooltipTrigger asChild>
+            <Link to={ROUTES.droneDetail.getPath(drone_code)}>{drone_code}</Link>
+          </TooltipTrigger>
+          <TooltipContent>
+            <div className='h-28 w-32 mb-5 flex justify-center items-center'>
+              <img
+                src={API_ENDPOINTS.getDroneImage(drone_code!)}
+                alt={name}
+                className='h-full object-contain'
+              />
+            </div>
+          </TooltipContent>
+        </Tooltip>
+      );
     },
   },
   {
     key: 'name',
     label: 'Name',
-    getCell: (name: string) => <div>{name}</div>,
+    getCell: ({ name }) => name,
   },
   {
     key: 'range',
     label: 'Range',
     headerClass: 'text-right',
-    getCell: (range: number) => <div className='text-right font-bold'>{range}</div>,
+    cellClass: 'font-bold text-right',
+    getCell: ({ range }) => range,
   },
   {
     key: 'release_date',
     label: 'Release Date',
     headerClass: 'text-right',
     cellClass: 'text-right',
-    getCell: (releaseDate: string) => new Date(releaseDate).toLocaleDateString(),
+    getCell: ({ release_date }) => new Date(release_date).toLocaleDateString(),
   },
 ];
 
@@ -95,7 +116,7 @@ const ListDrones = () => {
                         key={key}
                         className={cellClass}
                       >
-                        {getCell(drone[key])}
+                        {getCell(drone)}
                       </TableCell>
                     );
                   })}
