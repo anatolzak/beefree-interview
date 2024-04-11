@@ -13,6 +13,11 @@ import { droneSchema } from '../schema';
 import { DetailedDroneData } from '../types';
 
 const CreateDrone = () => {
+  /**
+   * We fetch all the drones and cache them so that by the time the user
+   * creates a new drone, we can directly modify the cached drones list
+   * in local storage.
+   */
   useDrones();
 
   const navigate = useNavigate();
