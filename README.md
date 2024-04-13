@@ -1,46 +1,27 @@
-# Getting Started with Create React App
+# Drone CRUD App
+This project is based on create-react-app and can be installed via `npm install` and started with `npm start`.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The project's requirements were to create 3 pages:
+1. Drones list page
+2. Create drone page
+3. Drone detail page
 
-## Available Scripts
+An API was provided for fetching all drones and for fetching the full details of a single drone.
 
-In the project directory, you can run:
+One of the requirements was that creating a drone should persist in the browser storage without sending any API request.
 
-### `npm start`
+Also, the responses from the API are static and should be cached locally to improve consecutive page load times.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Challenges
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+One of the challenges of this project is the lack of a single source of truth for the drones. This is because the API provides a list of drones but newly created drones are stored locally without any API interaction. 
 
-### `npm test`
+This results in 2 separate data sources: API-fetched drones and locally created drones.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+To avoid interacting with 2 separate data sources, I implemented a single source of truth. Since the responses from the API are static, I decided to store the responses in local storage and not refetch the same request on consecutive page loads. 
 
-### `npm run build`
+Then, when creating a new drone, I can directly modify the list of drones stored in local storage and append the newly created drone. This ensures the new drone appears on the drones list page, as this page retrieves its data from local storage, bypassing the API if the data was previously fetched and stored.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+One caveat is that we must fetch the list of drones from the API and store them locally before the user creates a new drone. Otherwise when the user creates a new drone, we will modify the list of drones stored locally, and when navigating to the drones list page, we will not initiate a request to the API because we "already had the data locally" and the only drones that will show up on the page, are the drones that were created locally.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+The only way this could fail is if the user manages to create a drone before the request to fetch all the drones completes. This is probably unlikely.
